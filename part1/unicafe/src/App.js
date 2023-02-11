@@ -6,9 +6,11 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  console.log('good ', good);
-  console.log('neutral ', neutral);
-  console.log('bad ', bad);
+  const average = () => good + bad + neutral === 0 ? 0 : ( good - bad ) / ( good + bad + neutral)
+
+  const total = () => good + bad + neutral
+
+  const positive = () => total() === 0 ? 0 : good*100 / total()
 
   return (
     <div>
@@ -20,8 +22,19 @@ const App = () => {
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
+      <p>all {total()}</p>
+      <p>average {average()} </p>
+      <p>positive {positive() }</p>
     </div>
   )
 }
 
 export default App
+
+
+/*
+Expand your application so that it shows more statistics about the gathered feedback: 
+the total number of collected feedback, 
+the average score (good: 1, neutral: 0, bad: -1) and 
+the percentage of positive feedback.
+*/
