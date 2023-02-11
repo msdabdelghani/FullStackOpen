@@ -1,11 +1,20 @@
 import { useState } from 'react'
 
 const Statistics = ({good, bad, neutral}) => {
-  const average = () => good + bad + neutral === 0 ? 0 : ( good - bad ) / ( good + bad + neutral)
+  
+  if (good + bad + neutral === 0){
+    return (
+      <div>
+        <p>No feedback given</p>
+      </div>
+    )
+  }
+
+  const average = () => ( good - bad ) / ( good + bad + neutral)
 
   const total = () => good + bad + neutral
 
-  const positive = () => total() === 0 ? 0 : good*100 / total()
+  const positive = () => good*100 / total()
   
   return (
     <div>
