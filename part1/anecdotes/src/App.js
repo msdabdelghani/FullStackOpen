@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
-const Button = ({onClick, text}) => {
+const Button = (props) => {
   return (
     <div>
-      <button onClick={onClick}>{text}</button>
+      <button onClick={props.onClick}>{props.text}</button>
     </div>
   );
 };
@@ -24,9 +24,9 @@ const App = () => {
   const [points, setPoints] = useState(Array(8).fill(0))
 
   const increment = () => {
-    const copy = [...points]
-    copy[selected] += 1
-    setPoints(copy) 
+    const newPoints = [...points]
+    newPoints[selected] += 1
+    setPoints(newPoints) 
   }
   
 
@@ -34,16 +34,20 @@ const App = () => {
     setSelected(Math.floor(Math.random() * 8));
   };
 
+  const maxVotes = Math.max(...points);
+  const maxVotedIndex = points.indexOf(maxVotes);
+
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}<br />
       Has {points[selected]} vote<br />
       <div style={{ display: 'flex'}}>
       <Button onClick={increment} text="vote" />
       <Button onClick={random} text="next anecdote"/>
       </div>
-      
-      
+      <h2>Anecdote with most votes</h2>
+      {anecdotes[maxVotedIndex]}
     </div>
   )
 }
