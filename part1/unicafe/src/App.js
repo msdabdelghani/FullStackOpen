@@ -1,39 +1,49 @@
 import { useState } from 'react'
 
-const StatisticLine = ({text, value}) => {
+const StatisticLine = ({stats}) => {
+  console.log(stats)
   return (
-    <div><p>{text} {value}</p></div>
+      <table>
+        <tbody>
+        {stats.map((statistic, index) => (
+          <tr key={index}>
+             <td>{statistic.text}</td>
+             <td>{statistic.value}</td>
+           </tr>     
+          ))}
+        </tbody>
+      </table>
   )
   
 }
 
 const Statistics = ({good, bad, neutral}) => {
-  if (good + bad + neutral === 0){
-    return (
-    <div>
-      <StatisticLine text="good" value ={good} />
-      <StatisticLine text="neutral" value ={neutral} />
-      <StatisticLine text="bad" value ={bad} />
-      <StatisticLine text="No feedback given" value ="" />
-    </div>
-      
-    )
-  }
 
   const average = () => ( good - bad ) / ( good + bad + neutral)
 
   const total = () => good + bad + neutral
 
   const positive = () => good*100 / total()
-  
+  const stats = [
+    { text:"good",  value :good },
+    { text:"neutral",  value :neutral },
+    { text:"good",  value :bad }
+  ]
+  let newStat;
+  if (good + bad + neutral === 0){
+    newStat = [{text:"No feedback given", value :""}];
+  }else{
+    newStat = [{text:"average", value :average() },
+      {text:"total", value :total() },
+      {text:"positive", value :positive() }
+    ]
+  }
+
+  const updatedStats = [...stats, ...newStat]
+
   return(
     <div>
-      <StatisticLine text="good" value ={good} />
-      <StatisticLine text="neutral" value ={neutral} />
-      <StatisticLine text="bad" value ={bad} />
-      <StatisticLine text="average" value ={average()} />
-      <StatisticLine text="total" value ={total()} />
-      <StatisticLine text="positive" value ={positive()} />
+      <StatisticLine stats ={updatedStats} />
     </div>
   )
   
