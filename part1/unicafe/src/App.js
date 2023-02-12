@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 const StatisticLine = ({stats}) => {
-  console.log(stats)
   return (
       <table>
         <tbody>
@@ -49,6 +48,12 @@ const Statistics = ({good, bad, neutral}) => {
   
 }
 
+const Button = ({text, onClick}) => {
+  return (
+    <button onClick={onClick}>{text}</button>
+  )
+}
+
 const App = () => {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0)
@@ -59,9 +64,9 @@ const App = () => {
   return (
     <div>
       <h1>Give Feedback</h1>
-      <button onClick = {() => setGood(good + 1)}>good</button>
-      <button onClick = {() => setNeutral(neutral + 1)}>neutral</button>
-      <button onClick = {() => setBad(bad + 1)}>bad</button>
+      <Button text="good" onClick={() => setGood(good + 1)} />
+      <Button text="neutral" onClick={() => setNeutral(neutral + 1)} />
+      <Button text="bad" onClick={() => setBad(bad + 1)} />
       <h1>Statistics</h1>
       <Statistics good = {good} neutral = {neutral} bad = {bad} />
     </div>
