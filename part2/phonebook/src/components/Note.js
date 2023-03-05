@@ -2,7 +2,7 @@ const Note = ({ person }) => {
 
     return (
 
-      <li>{person.name}</li>
+      <li>{person.name} {person.number}</li>
 
     )
 
