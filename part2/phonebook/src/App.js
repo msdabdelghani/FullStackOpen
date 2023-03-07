@@ -1,5 +1,42 @@
-import Note from './components/Note'
+import Person from './components/Person'
 import { useState } from 'react'
+
+const Filter = (props) => {
+  return (
+    <div>
+        {props.text} <input value={props.value} onChange={props.onChange}/>
+      </div>
+  )
+}
+
+const PersonForm = (props) => {
+  return (
+    <>
+     <form onSubmit={props.onSubmit}>
+        <div>
+          {props.nameText} <input value = {props.name} onChange={props.nameChange}/>
+        </div>
+        <div>
+          {props.numberText} <input value = {props.number} onChange={props.numberChange}/>
+        </div>
+        <div>
+          <button type={props.buttonType}>{props.buttonText}</button>
+        </div>
+      </form>
+    </>
+  )
+}
+
+const Persons = (props) => {
+  return (
+    <>
+      <ul>{props.personsToShow.map(person =>
+          <Person key={person.id} person={person} />
+          )}
+      </ul>
+    </>
+  )
+}
 
 const App = () => {
 
@@ -46,25 +83,21 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with <input value={newSearch} onChange={handleSearchChange}/>
-      </div>
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input value = {newName} onChange={handleNameChange}/>
-        </div>
-        <div>
-          number: <input value = {newNumber} onChange={handleNumberChange}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <Filter text = 'filter shown with' value = {newSearch} onChange = {handleSearchChange}/>
+      <h3>add new</h3>
+      <PersonForm
+        onSubmit = {addPerson}
+        nameText = 'name:'
+        name = {newName}
+        nameChange = {handleNameChange}
+        numberText = 'number'
+        number = {newNumber}
+        numberChange = {handleNumberChange}
+        buttonText = 'add'
+        buttonType = 'submit'
+      />
       <h2>Numbers</h2>
-      <ul>{personsToShow.map(person =>
-          <Note key={person.name} person={person} />
-          )}
-      </ul>
+      <Persons personsToShow = {personsToShow}/>
     </div>
   )
 }
