@@ -31,7 +31,8 @@ const App = () => {
     event.preventDefault()
     const personObject = {
       name: newName,
-      number : newNumber
+      number : newNumber,
+      id : persons.length + 1
     }
     const personExist = persons.some(person => person.name === personObject.name);
     if(personExist){
